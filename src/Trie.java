@@ -48,7 +48,7 @@ public class Trie {
     }
     private void addAllWords() {
         Path dictionaryPath = null;
-        String dictionaryLink = "../resources/" + Scrabble.LANGUAGE.toLowerCase() + ".txt";
+        String dictionaryLink = "resources/" + Scrabble.LANGUAGE.toLowerCase() + ".txt";
         dictionaryPath = Paths.get(dictionaryLink);
         try (BufferedReader dictionaryReader = Files.newBufferedReader(dictionaryPath, StandardCharsets.UTF_8)) {
             dictionaryReader.readLine();
