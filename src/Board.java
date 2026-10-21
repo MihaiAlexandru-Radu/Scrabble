@@ -1,4 +1,4 @@
-package Scrabble;
+package src;
 
 public class Board {
     public static final int COLS = 15, ROWS = 15;
