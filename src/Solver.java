@@ -70,8 +70,10 @@ public class Solver {
         String[] bestMove = bestMoveString.split(",");
         player.addScore(bestScore);
         word = bestMove[0];
-        row = Integer.parseInt(bestMove[1]);
-        lastCol = Integer.parseInt(bestMove[2]);
+        if(bestScore != 0) {
+            row = Integer.parseInt(bestMove[1]);
+            lastCol = Integer.parseInt(bestMove[2]);
+        }
         Panel.moveDesc = "-    Rack: " + player.getRack() + "   -   " + word + ": " + Math.max(bestHorizontalScore, bestVerticalScore);
         for (int col = lastCol; col >= lastCol - word.length() + 1; col--) {
             Character l = word.charAt(word.length() - (lastCol - col) - 1);
