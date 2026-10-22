@@ -19,6 +19,8 @@ The program also is able to play in German and Romanian. In the Scrabble.java fi
 > The algorithm may show some weird two-letter cross words. This is normal because the Scrabble Dictionary has a lot of strange two-letter words to give players an easier time.
 
 ## Program Run Example
+![Scrabble gameplay demo](/resources/scrabble_gameplay.gif)
+
 
 ## To-Do
 Provide a local website to visualize the program on.
