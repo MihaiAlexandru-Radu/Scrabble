@@ -255,8 +255,8 @@ public class Solver {
      */
     public void findCrossChecks(int startRow, int endRow) {
         for(int row = startRow; row <= endRow; row++) {
-            int checkRow = row; //row to be iterated
             for(int col = 0; col < Board.COLS; col++) {
+                int checkRow = row; //row to be iterated
                 crossScores[row][col] = 0;
                 if(!squares[row][col].isEmpty()) continue; //if square filled, no crosscheck
                 int crossSum = 0;
@@ -268,7 +268,7 @@ public class Solver {
                     checkRow--;
                 }
                 String suffix = "";
-                checkRow = row;
+                checkRow = row; 
                 // find suffix, the line of adjacent letters dirrectly below current square
                 while(checkRow+1 < Board.ROWS && !squares[checkRow+1][col].isEmpty()) {
                     suffix = suffix + squares[checkRow+1][col].getLetter();
