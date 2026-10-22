@@ -16,7 +16,7 @@ public class Bag {
         String LETTER_DISTR = "";
         switch (Scrabble.LANGUAGE.toLowerCase()) {
             case "english":
-                LETTER_DISTR = "9:A|2:B|2:C|4:D|12:E|2:F|3:G|2:H|9:I|1:J|1:K|4:L|2:M|6:N|8:O|2:P|1:Q|6:R|4:S|6:T|4:U|2:V|2:W|1:X|2:Y|1:Z|15:%|";
+                LETTER_DISTR = "9:A|2:B|2:C|4:D|12:E|2:F|3:G|2:H|9:I|1:J|1:K|4:L|2:M|6:N|8:O|2:P|1:Q|6:R|4:S|6:T|4:U|2:V|2:W|1:X|2:Y|1:Z|2:%|";
                 break;
             case "german":
                 LETTER_DISTR = "5:A|2:B|2:C|4:D|15:E|2:F|3:G|4:H|6:I|1:J|2:K|3:L|4:M|9:N|3:O|1:P|1:Q|6:R|7:S|6:T|6:U|1:V|1:W|1:X|1:Y|1:Z|2:%|1:Ä|1:Ü|1:Ö|";
