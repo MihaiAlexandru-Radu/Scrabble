@@ -212,7 +212,7 @@ public class Solver {
             }
         }
         int totalScore = (wordScore * wordMultiplier) + crossScore;
-        if(word.length() == 7) totalScore += 50; //BINGO
+        if(player.getRack().isEmpty()) totalScore += 50; //BINGO
         if(isHorizontal && totalScore > bestHorizontalScore) {
             bestHorizontalScore = totalScore;
             bestHorizontalMove = word + "," + row + "," + col;
