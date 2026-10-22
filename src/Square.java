@@ -9,6 +9,7 @@ public class Square {
     private int letterScore;
     private String desc;
     private ArrayList<Character> crossCheck;
+    private boolean hasCrossword;
 
     public Square(int row, int col, String desc) {
         this.row = row;
@@ -19,6 +20,7 @@ public class Square {
         this.letterScore = 0;
         this.desc = desc;
         this.crossCheck = new ArrayList<Character>();
+        this.hasCrossword = false;
         switch(desc) {
             case "DL":
                 this.letterMultiplier = 2;
@@ -69,6 +71,12 @@ public class Square {
     }
     public boolean containsCrossCheck(Character letter) {
         return crossCheck.contains(letter);
+    }
+    public boolean containsCrossWord() {
+        return hasCrossword;
+    }
+    public void setHasCrossWord(boolean hasCrossword) {
+        this.hasCrossword = hasCrossword;
     }
     public void addDefaultCrossCheck() {
         ArrayList<Character> alphabet = new ArrayList<Character>();

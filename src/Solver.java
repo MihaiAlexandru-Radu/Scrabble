@@ -49,6 +49,8 @@ public class Solver {
      * @return highest score possible overall
      */
     public int makeBestMove(Player player) {
+        this.bestHorizontalScore = 0;
+        this.bestVerticalScore = 0;
         this.player = player;
         isHorizontal = true;
         findBestDirectedMove();
@@ -77,6 +79,8 @@ public class Solver {
         Panel.moveDesc = "-    Rack: " + player.getRack() + "   -   " + word + ": " + Math.max(bestHorizontalScore, bestVerticalScore);
         for (int col = lastCol; col >= lastCol - word.length() + 1; col--) {
             Character l = word.charAt(word.length() - (lastCol - col) - 1);
+            // if tile is already full, skip
+            if(!squares[row][col].isEmpty()) continue;
             if (!Character.isLowerCase(l)) { // if tile is letter
                 player.removeLetter(l);
                 squares[row][col].placeLetter(l, Scrabble.getLetterValue(l));
@@ -88,8 +92,6 @@ public class Solver {
         if(bestVerticalScore > 0 && bestVerticalScore >= bestHorizontalScore) transposeAll();            
         this.bestHorizontalMove = "";
         this.bestVerticalMove = "";
-        this.bestHorizontalScore = 0;
-        this.bestVerticalScore = 0;
         return Math.max(bestHorizontalScore, bestVerticalScore);
     }
     /**
@@ -195,22 +197,22 @@ public class Solver {
         int crossScore = 0;
         int wordScore = 0, wordMultiplier = 1;
         for(int checkCol = col; checkCol >= col-word.length()+1; checkCol--) {
+            Square currentSquare = squares[row][checkCol];
+            char currentLetter = word.charAt(word.length() - (col-checkCol) - 1);
             //add current letter value to word score, with letter multiplier if necessary
-            int letterMultiplier = squares[row][checkCol].getLetterMultiplier();
-            int letterScore = 0;
-            if(Character.isLowerCase(word.charAt(word.length() - (col-checkCol) - 1))) letterScore = 0; //if blank, letter worth 0 points
-            else letterScore = Scrabble.getLetterValue(word.charAt(word.length() - (col-checkCol) - 1));
+            int letterMultiplier = currentSquare.getLetterMultiplier();
+            int letterScore = (Character.isLowerCase(currentLetter)) ? 0 : Scrabble.getLetterValue(currentLetter);
             wordScore += letterScore * letterMultiplier;
             //increase word multiplier if word multiplier tile present
-            int currentWordMultiplier = squares[row][checkCol].getWordMultiplier();
+            int currentWordMultiplier = currentSquare.getWordMultiplier();
             wordMultiplier *= currentWordMultiplier;
-            //add score from cross words, this score is not multiplied by wordMultiplier in end
-            if(crossScores[row][checkCol] > 0) {
+            //add score from cross words, only if crossword is possible
+            if(currentSquare.isEmpty() && currentSquare.containsCrossWord()) {
                 crossScore += (crossScores[row][checkCol] + (letterScore*letterMultiplier)) * currentWordMultiplier;
             }
         }
         int totalScore = (wordScore * wordMultiplier) + crossScore;
-        if(player.getRack().isEmpty()) totalScore += 50; //BINGO
+        if(word.length() == 7) totalScore += 50; //BINGO
         if(isHorizontal && totalScore > bestHorizontalScore) {
             bestHorizontalScore = totalScore;
             bestHorizontalMove = word + "," + row + "," + col;
@@ -269,13 +271,14 @@ public class Solver {
                 checkRow = row;
                 // find suffix, the line of adjacent letters dirrectly below current square
                 while(checkRow+1 < Board.ROWS && !squares[checkRow+1][col].isEmpty()) {
-                    suffix = suffix + squares[checkRow+1][col];
+                    suffix = suffix + squares[checkRow+1][col].getLetter();
                     crossSum += squares[checkRow+1][col].getLetterScore();
                     checkRow++;
                 }
                 crossScores[row][col] = crossSum;
-                //if no squares directly above or below, all letters possible to add
-                if(prefix.length() == 0 && suffix.length() == 0) {
+                // crossword score  possible only if prefix or suffix present to add score to 
+                squares[row][col].setHasCrossWord(!prefix.isEmpty() || !suffix.isEmpty());
+                if(prefix.isEmpty() && suffix.isEmpty()) {
                     squares[row][col].addDefaultCrossCheck();
                 } else {
                 //else if has prefix/suffix, add letters which correspond to tree availability
