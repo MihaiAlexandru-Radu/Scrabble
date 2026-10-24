@@ -6,7 +6,9 @@ quits only when instructed two by the player. The AI's will eventually stop play
 
 It should support everything from the original game of Scrabble from blank letter tiles to word and letter multiplier squares.
 
-The central algorithm is heavily inspired by the pseudocode and explanation here: [The World’s Fastest Scrabble Program](https://www.cs.cmu.edu/afs/cs/academic/class/15451-s06/www/lectures/scrabble.pdf).
+The central algorithm design is based off the explanation here: [The World’s Fastest Scrabble Program](https://www.cs.cmu.edu/afs/cs/academic/class/15451-s06/www/lectures/scrabble.pdf).
+
+The paper gives pseudocode on generating words, but methods for actually storing and scoring the correct words (legalMove) are left to the reader. Similarly, though it explains anchors and cross-checks, designing an algorithm to actually find them is nonetheless a challenge.
 
 ## Usage
 Once you have the program copied into a code editor (e.g. Visual Studio Code), run the main file Scrabble.java, which should open the visualized board. Once there, press space repeatedly for each of 
